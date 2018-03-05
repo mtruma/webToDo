@@ -1,2 +1,2 @@
 # webToDo
-Presentation of To-Do web page with import and export functionalities.
+To-Do web page with import and export functionalities.
