@@ -1,7 +1,7 @@
 
 var table = document.getElementById('tableBody');
 var text = document.getElementById('addNewText');
-var storageData = [];
+var storageData;
 
 var DataObject =
 {
