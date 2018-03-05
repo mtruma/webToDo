@@ -27,19 +27,19 @@
           <button type="button" onclick="Import()" class="btn btn-primary btn-sm" id="i">Import</button>
           <input type="file" id="fileUpload" onchange="uploadTable()" style="display:none;"/>
         </div>
-        <table class="table table-sm table-hover" id="toDoTable">
-          <thead class="bg-primary">
-            <tr>
-              <th class="col-8">To-do</th>
-              <th class="col-1" style="text-align: center;">Completed</th>
-              <th class="col-1" style="text-align: center;">Delete</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody">
-          </tbody>
+        <div id="uploadTable">
+          <table class="table table-sm table-hover" id="toDoTable">
+            <thead class="bg-primary">
+              <tr>
+                <th class="col-8">To-do</th>
+                <th class="col-1" style="text-align: center;">Completed</th>
+                <th class="col-1" style="text-align: center;">Delete</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </div>
       </form>
-      <iframe id="txtArea1" style="display:none"></iframe>
-      <p id="fileDisplayArea"></p>
     </div>
     <script src="script.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
