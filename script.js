@@ -1,7 +1,7 @@
 
 var table = document.getElementById('tableBody');
 var text = document.getElementById('addNewText');
-var storageData;
+var storageData = [];
 
 var DataObject =
 {
@@ -80,38 +80,41 @@ function UpdateCheckBox(obj)
 function Export()
 {
     savedData = JSON.parse(localStorage.getItem("ToDoData"));
-    var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
-
     var tab = document.getElementById('toDoTable');
-    tab_text += "<th>" + tab.rows[0].cells[0].innerHTML + "</th>" +
-    "<th>"+ tab.rows[0].cells[1].innerHTML + "</th></tr></thead>";
-    for(i = 1; i < tab.rows.length; i++)
-      tab_text +="<tbody><tr><td>" + tab.rows[i].cells[0].innerHTML + "</td>" +
-      "<td>" + savedData.done[i-1] + "</td>" + "</tr>";
-
-    tab_text = tab_text+"</tbody></table>";
-    tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, "");
-    tab_text = tab_text.replace(/<img[^>]*>/gi,"");
-    tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, "");
-
-    s = window.open('data:application/vnd.ms-excel;charset=utf-8,' + encodeURIComponent(tab_text));
-
-    return (s);
+    var tab_text="<tr>";
+    for (i = 1; i < tab.rows.length; i++)
+    {
+      if (savedData.todo[i-1] != savedData.todo[i])
+      {
+        if (savedData.done[i-1] == true)
+          tab_text += "<td>" + tab.rows[i].cells[0].innerHTML + "</td><td>" + '<div class="form-check" align="center"><input type="checkbox" class="form-check-input" onclick="UpdateCheckBox(this)" checked></div>' + "</td>";
+        else
+          tab_text += "<td>" + tab.rows[i].cells[0].innerHTML + "</td><td>" + '<div class="form-check" align="center"><input type="checkbox" class="form-check-input" onclick="UpdateCheckBox(this)"></div>' + "</td>";
+        tab_text += '<td style="text-align:center;"><a href="javascript:void(0)" onclick="RemoveRow(this)"><span class="far fa-trash-alt"></span></a></td></tr>';
+      }
+    }
+    data = window.open('data:text/dat;charset=utf-8,' + encodeURIComponent(tab_text), "SaveData");
+    return (data);
 }
-//not finished
+
 function Import()
 {
   document.getElementById('fileUpload').click();
 }
-function uploadTable()
+function UpdateTable()
 {
   var fileInput = document.getElementById("fileUpload");
   var reader = new FileReader();
   reader.onload = function ()
   {
-    var s = reader.result;
-    document.getElementById('fileDisplayArea').innerHTML = s;
+    document.getElementById('tableBody').innerHTML = reader.result;
+    for(i = 0; i < table.rows.length; i++)
+    {
+      DataObject.todo[i] = table.rows[i].cells[0].innerHTML;
+      DataObject.done[i] = table.rows[i].cells[1].lastElementChild.lastElementChild.checked;
+    }
+    SaveData(DataObject);
   };
 
-  reader.readAsBinaryString(fileInput.files[0]);
+  reader.readAsText(fileInput.files[0]);
 }
