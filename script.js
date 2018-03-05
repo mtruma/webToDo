@@ -93,7 +93,7 @@ function Export()
         tab_text += '<td style="text-align:center;"><a href="javascript:void(0)" onclick="RemoveRow(this)"><span class="far fa-trash-alt"></span></a></td></tr>';
       }
     }
-    data = window.open('data:text/dat;charset=utf-8,' + encodeURIComponent(tab_text), "SaveData");
+    data = window.open('data:application/dat;charset=utf-8,' + encodeURIComponent(tab_text), "SaveData");
     return (data);
 }
 
